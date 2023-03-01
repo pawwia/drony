@@ -1,0 +1,103 @@
+.Mainelement .LeftSide
+{
+    width:100%;
+    padding:0;
+    display: flex;
+    background-color: #000;
+    color:#fff;
+
+
+}
+.Mainelement  .inverseRight
+{
+    flex-direction:row-reverse ;
+
+}
+.Mainelement .LeftSide .leftImg
+{
+    width:50%;
+    height:100%;
+    object-fit: cover;
+}
+.Mainelement .LeftSide .leftImg img
+{
+    width:100%;
+height:100%;
+-moz-user-select: none;
+-webkit-user-select: none;
+user-select: none;
+}
+.Mainelement .LeftSide .rightText
+{
+    width:50%;
+    height:100%;
+}
+
+.Mainelement .LeftSide .rightText .rightContent
+{
+width:80%;
+margin-left: auto;
+margin-right: auto;
+margin-top:60px;
+
+}
+.Mainelement .LeftSide .rightText .rightContent h2
+{
+    font-size:4vw;
+}
+.Mainelement .LeftSide .rightText .rightContent p
+{
+    font-size:1.5vw
+    
+}
+.Mainelement .LeftSide .rightText .rightContent a 
+{
+    display: block;
+    text-decoration: none;
+    color:#fff;
+    border:2px #fff solid;
+    width:50%;
+    padding:15px;
+    border-radius: 5px;
+    font-weight: 900;
+    text-align: center;
+    
+}
+
+@media (max-width:750px)
+{
+    .Mainelement .LeftSide .leftImg, .Mainelement .LeftSide .rightText
+{
+    width:100%;
+    min-height:300px;
+}
+.Mainelement .LeftSide .rightText .rightContent a 
+{
+    margin-top:50px;
+}
+.Mainelement .LeftSide .rightText .rightContent h2
+{
+    font-size:35px;
+}
+
+.Mainelement .LeftSide .rightText .rightContent p
+{
+    font-size: 17px;
+}
+.Mainelement .LeftSide
+{
+    flex-flow: column;
+    flex-direction: column;
+    
+}
+.Mainelement  .inverseRight
+{
+    flex-direction: column;
+}
+
+.Mainelement .LeftSide .rightText .rightContent
+{
+    margin-bottom:50px;
+}
+
+}

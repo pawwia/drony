@@ -1,0 +1,99 @@
+.ShowCategory
+{
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color: rgba(255,255,255,0.8);
+    transition: 0.5s;
+    animation:zoom 0.5s
+
+    
+}
+@keyframes zoom{
+0%{
+transform: scale(0,0);
+}
+100%
+{
+    transform:scale(1,1)
+}
+
+}
+@keyframes zoomOut{
+    0%{
+    transform: scale(1,1);
+    }
+    100%
+    {
+        transform:scale(0,0)
+    }
+    
+    }
+@keyframes slideUp{
+    0%{
+    transform: translateY(-1000%)
+    }
+    100%
+    {
+        transform:translateY(0)
+    }
+    
+    }
+    @keyframes slideDown{
+        0%{
+        transform: translateY(0)
+        }
+        100%
+        {
+            transform:translateY(1000%);
+            visibility: hidden;
+            display: none;
+        }
+        
+        }
+.ShowCategory .modal
+{
+    background-color: black;
+    width:80%;
+    min-height:80vh;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top:100px;
+    border-radius: 20px;
+    overflow-y: auto;
+    animation-delay: 1300ms;
+    animation: slideUp 1s ;
+    box-shadow:   0 0 100px 50px  #000;
+}
+
+
+
+.ShowCategory .closingModal
+{
+    animation: slideDown 1s ;
+}
+
+.closingShow
+{
+    animation-delay: 1100ms;
+    animation: zoomOut 1s ;
+}
+
+@media (max-width: 750px)
+{
+
+    .ShowCategory .modal
+{
+   
+    top:0;
+    right:0;
+    left:0;
+    bottom:0;
+    margin:0;
+    width:100%;
+    position: fixed;
+}
+
+}

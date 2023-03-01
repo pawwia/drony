@@ -1,0 +1,110 @@
+nav{
+    width:100%;
+    height:64px;
+    background-color: rgb(255, 255, 255);
+}
+nav .navContent
+{
+    width:80%;
+    margin-left: auto;
+    margin-right:auto;
+    height:100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav .navContent .navlogo
+{
+    width:30%;
+    height:100%;
+    object-fit: contain;
+}
+nav .navContent .menuButtons
+{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+nav .navContent .navlogo img 
+{
+    height:100%;
+}
+nav .navContent .menuButtons a
+{
+    text-decoration: none;
+    line-height: 64px;
+    color:#303233;
+    font-weight: 450;
+}
+nav .phoneOpen
+{
+right:-100%
+}
+@media (max-width:750px)
+{
+
+    nav .phoneOpen
+    {
+        position: fixed;
+        top:100px;
+        right:20px;
+        z-index: 1000000;
+        border:#fff 2px solid;
+        padding:10px;
+        border-radius: 10px;
+        transition: 0.3s;
+
+
+}
+    nav .phoneOpen svg
+    {
+        color:#fff
+    }
+    nav .phoneOpenBlack
+    {
+        border-color:#000 !important;
+
+    }
+    nav .phoneOpenBlack svg
+    {
+        color:#000 !important;
+    }
+
+    nav .navContent .menuButtons
+    {
+        visibility: hidden;
+        background-color: rgba(0,0,0,0.9);
+        position:fixed;
+        z-index: 1000;
+        left:100%;
+        right:0;
+        bottom:0%;
+        top:0;
+        flex-flow: column;
+        width:100%;
+        justify-content: unset;
+        transition:0.3s;
+
+    } 
+    nav .navContent .menuButtons a
+{
+width:100%;
+color:#fff;
+line-height:100px;
+height:100px;
+border-bottom:#fff 1px solid;
+text-align: center;
+}
+nav .navContent .menuButtons a:first-child
+{
+    margin-top:180px;
+}
+nav .navContent .openPhoneMenu
+{
+    visibility: visible;
+    left:0 !important;
+}
+
+
+
+}

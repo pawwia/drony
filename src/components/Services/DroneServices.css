@@ -1,0 +1,50 @@
+.droneServices
+{
+    background-color: black;
+    color:#fff;
+}
+.droneServices .categories
+{
+    width:80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.droneServices .categories .catElement
+{
+    border-radius: 10px;
+    border:2px solid white;
+height:30px;
+width:200px;
+text-align: center;
+line-height: 30px;
+padding:10px;
+margin-right: 20px;
+transition: 0.3;
+
+}
+.droneServices .categories .catElement:hover
+{
+background-color: #6e6e6e;
+cursor: pointer;
+}
+
+@media (max-width:750px)
+{
+
+    .droneServices .categories .catElement
+{
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom:20px;
+}
+.droneServices .categories
+{
+    flex-flow:column;
+}
+.droneServices  h3{
+    text-align: center;
+}
+}

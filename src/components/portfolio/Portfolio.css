@@ -1,0 +1,136 @@
+.Portfolio
+{
+    min-height: 300px;
+    height:100%;
+    background-color: #000;
+    
+}
+.Portfolio .PortfolioElement
+{
+    background-image:     linear-gradient(black, black),
+    url('../../intMedia/portfolio.jpeg');
+    width:100%;
+    min-height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;   
+    background-blend-mode: saturation;
+    transition:0.5s;
+    padding-top:100px;
+
+
+}
+
+.Portfolio .PortfolioElement .element
+{
+   margin-left:auto;
+   margin-right: auto;
+   position:static;
+   width:50%;
+   text-align: center;
+   color:#fff;
+   border-radius: 20px;
+   background-color: rgba(0,0,0,0.6);
+   padding:40px;
+
+
+}
+.Portfolio .PortfolioElement .element h2
+{
+    font-size:35px;
+}
+.Portfolio .PortfolioElement .element button
+{
+    text-decoration: none;
+    color:#fff;
+    border-radius: 20px;
+    padding: 20px;
+    border:3px solid #fff;
+    font-size:25px;
+    margin-top:20px;
+    display: block;
+    width:250px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: transparent;
+}
+.Portfolio .PortfolioElement .element button:hover
+{
+    cursor: pointer;
+}
+.Portfolio .PortfolioElement:hover
+{
+    background-image: url('../../intMedia/portfolio.jpeg');
+}
+
+.Portfolio .PortfolioElement:hover +#port1>.PortfolioElement .element
+
+{
+    background-color: rgba(255,255,255,0.6);
+}
+
+
+.Portfolio #port5
+{
+    background-image: linear-gradient(black, black),url('../../intMedia/1.jpg');
+
+}
+.Portfolio #port4
+{
+    background-image: linear-gradient(black, black),url('../../intMedia/2.jpg');
+
+}
+.Portfolio #port3
+{
+    background-image: linear-gradient(black, black),url('../../intMedia/3.jpg');
+
+}
+.Portfolio #port2
+{
+    background-image: linear-gradient(black, black),url('../../intMedia/4.jpg');
+
+}
+.Portfolio #port1
+{
+    background-image: linear-gradient(black, black),url('../../intMedia/5.jpg');
+
+}
+.Portfolio #port5:hover
+{
+    background-image: url('../../intMedia/1.jpg');
+
+}
+.Portfolio #port4:hover
+{
+    background-image: url('../../intMedia/2.jpg');
+
+}
+.Portfolio #port3:hover
+{
+    background-image: url('../../intMedia/3.jpg');
+
+}
+.Portfolio #port2:hover
+{
+    background-image: url('../../intMedia/4.jpg');
+
+}
+.Portfolio #port1:hover
+{
+    background-image:url('../../intMedia/5.jpg');
+
+}
+
+
+@media (max-width: 750px)
+
+{
+    .Portfolio .PortfolioElement .element
+{
+    width:99%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+}

@@ -1,0 +1,233 @@
+.Contact
+{
+    background-color: #000000;
+    width:100%;
+    padding-top:100px;
+    min-height:700px;
+}
+
+.Contact .ContactPop
+{
+
+    width:80%;
+    margin-left:auto;
+    margin-right: auto;
+    min-height:650px;
+    display: flex;
+    -webkit-box-shadow: 0 0 10px #fff;
+    box-shadow:   0 0 50px  #fff;
+    border-radius: 20px;
+
+
+
+}
+.Contact .ContactPop .left
+{
+width:60%;
+height: 100%;
+min-height: 650px;
+background-color:#000 ;
+border-radius: 20px 0 0 20px;
+
+
+}
+
+.Contact .ContactPop .right
+{
+width:40%;
+height:100%;
+min-height: 650px;
+background-color: #fff;
+border-radius: 0 20px 20px 0 ;
+
+
+
+}
+
+.Contact .ContactPop .left p
+{
+    display: block;
+    color:#fff;
+    padding:20px;
+}
+.Contact .ContactPop .left .form
+{
+    margin-left:auto;
+    margin-right: auto;
+    width:80%;
+}
+.Contact .ContactPop .left .form input, .Contact .ContactPop .left .form textarea
+
+{
+    display: block;
+    width:60%;
+    padding:15px;
+    border:none;
+    border-bottom: 2px solid #27374a ;
+    margin-bottom: 30px;
+    background-color: transparent;
+    color: #95a2b7;
+    font-size:20px;
+}
+
+.Contact .ContactPop .left .form input::placeholder, .Contact .ContactPop .left .form textarea::placeholder
+{
+    font-size:16px;
+    color:#3d4352  ;
+}
+
+.Contact .ContactPop .left .form button
+{
+    padding: 10px 35px 10px 35px;
+    border-radius:20px;
+    color:#fff;
+    background-color:#d83665 ;
+    border:none;
+    font-size:larger;
+    margin-left:50%;
+    transition: 0.3s;
+    margin-top:30px;
+}
+
+.Contact .ContactPop .left .form button:hover
+{
+    background-color:#d83665 ;
+    transform:translateX(10px);
+    cursor: pointer;
+}
+
+.Contact .ContactPop .left .form .error
+{
+    color:red;
+    margin-top:10px;
+}
+@keyframes ladowanie {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(100px);}
+    100% {transform: translateX(0);}
+
+  }
+.Contact .ContactPop .left .form .loading
+{
+    margin-top:20px;
+    color:white;
+    animation: ladowanie infinite 1.5s;
+}
+
+
+.Contact .ContactPop .right h2
+{
+    width:50%;
+    margin-left: 50px;
+    margin-top:100px
+}
+
+.Contact .ContactPop .right .contactElements
+{
+    margin:5%;
+    margin-top:50px
+
+    
+}
+.Contact .ContactPop .right .contactElements .el a
+{
+text-decoration: none;
+color: #000;
+padding:10px;
+line-height:60px;
+display: inline-block;
+font-size: 20px;
+vertical-align:bottom
+}
+
+.Contact .ContactPop .right .contactElements .el
+{
+    height:60px;
+    line-height:60px;
+
+}
+.Contact .ContactPop .left .form input[type='checkbox']
+{
+    text-align: left;
+    width: auto;
+    display: inline-block;
+    width:20px;
+    margin:0;
+    height:20px
+}
+.Contact .ContactPop .left .form .valSign 
+{
+    position: absolute;
+    margin-top:-65px;
+    margin-left:23%;
+   
+
+}
+.Contact .ContactPop .left .form .valSign  svg
+{
+display: inline;
+}
+.Contact .ContactPop .left .form label
+{
+    width:65%;
+    color:#fff;
+    line-height: normal;
+    display:inline-flex;
+    font-size:12px;
+}
+
+.Contact .ContactPop .left .form  .isSent{
+    background-color: gray !important;
+    pointer-events: none;
+}
+@media (max-width: 750px)
+{
+    .Contact
+    {
+padding-bottom: 50px;
+}
+    .Contact .ContactPop
+{
+    width:90%;
+    flex-flow: column;
+    border-radius: 20px ;
+    padding-bottom: 0;
+
+}
+.Contact .ContactPop .left
+{
+    width:100%;
+    border-radius: 20px 20px 0 0  ;
+
+}
+.Contact .ContactPop .right
+{
+    width:100%;
+    border-radius: 0 0 20px 20px ;
+
+}
+.Contact .ContactPop .left .form input, .Contact .ContactPop .left .form textarea
+{
+    width:90%;
+}
+.Contact .ContactPop .left .form button
+{
+    display: block;
+    margin:0;
+    margin-left:60%;
+    margin-top:40px;
+    margin-bottom: 20px;;
+}
+.Contact .ContactPop .left .form label
+{
+    width:90%;
+}
+
+.Contact .ContactPop .left .form .valSign 
+{
+    margin-left:65%;
+   
+
+}
+
+}
