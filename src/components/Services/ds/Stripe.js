@@ -18,7 +18,7 @@ const PayApp = (props) => {
         fetch("http://localhost:80/drony2/payments/create.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id:5, km:props.kmtransp, date:props.data_uslugi, num:props.kategoria, long:props.opcja}),//podajemy itemy -  poprawic
+            body: JSON.stringify({ id:props.id, km:props.kmtransp, date:props.data_uslugi, num:props.kategoria, long:props.opcja}),//podajemy itemy -  poprawic
           })
           .then((res) => res.json())
           .then((data) => setClientSecret(data.clientSecret));

@@ -3,14 +3,17 @@ import './DroneRent.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faX } from '@fortawesome/free-solid-svg-icons';
 import PayApp from '../ds/Stripe';
+import 'react-date-range/dist/styles.css'; // main css file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DateRange } from 'react-date-range';
 
-const serviceURL="http://localhost/drony/getServices.php";
-const citiesURL="http://localhost/drony/getCities.php";
-const avabilityURL="http://localhost/drony/checkAvability.php";
+const serviceURL="http://localhost/drony/rental/showDrones.php";
+const avabilityURL="http://localhost/drony/rental/checkAvability.php";
 const sendWithpaymentURL="http://localhost/drony/orderAndPay.php";
 const justOrderURL="http://localhost/drony/justOrderService.php";
 
 const getData=async(url,data)=>{
+    
 
     const resp=await fetch(url,{
     method:'POST',
@@ -24,65 +27,11 @@ const getData=async(url,data)=>{
 
 const DroneRent = (props) => {
 
-    useEffect(
-        ()=>{
-            const data={
-                category:props.category
-            }
-            const resultsGetCities= getData(serviceURL,data)
-            if(resultsGetCities)
-            { 
-                resultsGetCities.then((result)=>{
-                    if (result)
-                    {setLoading(0);
-            setDataService(result);
-                  
-                    }
-                    else 
-                    {
-alert("Nastąpił błąd i nie udało nam się pobrac danych. Odświez stronę lub spróbuj ponownie później.")                    
-                    }
-                })}
-        
-        
-        },[props.category] )
+   
 
 
-    useEffect(
-()=>{
-    const data={
-    }
-    const resultsGetCities= getData(citiesURL,data)
-    if(resultsGetCities)
-    {
-        resultsGetCities.then((result)=>{
-            if (result)
-            {setLoading(0);
-    setDataCities(result);
-          
-            }
-            else 
-            {
-            setLoading(0);
-            
-            }
-        })}
 
-
-},[] )
-    useEffect(()=>{
-
-setStep(1);
-setDateToCheck(null);
-setVidLong(null);
-setPriceService(0)
-setPriceTransp(0);
-setDate(null)
-setAvalable(null)
-setAverror(null);
-setClosestCity("");
-
-    },[props.category])
+ 
     window.addEventListener("beforeunload", (ev) => 
     {  
         ev.preventDefault();
@@ -97,12 +46,30 @@ const [dataService,setDataService]=useState(null);
 const Month=(d.getMonth()<9)?('0'+(d.getMonth()+1)):(d.getMonth()+1);
 const Day=(d.getDate()<9)?('0'+(d.getDate())):(d.getDate());
 const Year=d.getFullYear();
+const maxDate = new Date(new Date().getFullYear() + 1, 11, 31);
 const Today=Year+'-'+Month+'-'+Day;
 const max=(Year+1)+'-'+Month+'-'+Day;
 const [loading,setLoading]=useState(0);
 const [errorText,setErrorText]=useState(null);
 
+
 const [dateToCheck,setDateToCheck]=useState();
+
+const [date1ToCheck,setDate1ToCheck]=useState();
+const [date2ToCheck,setDate2ToCheck]=useState();
+const [date1ToBlock,setDate1ToBlock]=useState();
+const [date2ToBlock,setDate2ToBlock]=useState();
+
+const [dates, setDates] = useState([
+    {
+      startDate: new Date(),
+      endDate: new Date(),
+      key: 'selection',
+    
+      
+    }
+  ]);
+
 const [avalable,setAvalable]=useState(null);
 const [averror,setAverror]=useState(null);
 const [date,setDate]=useState(null);
@@ -113,7 +80,6 @@ const [vidLong, setVidLong]=useState(null);
 const [adress, setAdress]=useState("");
 const [zip, setZip]=useState("");
 const [city, setCity]=useState("");
-const [closestCity, setClosestCity]=useState("");
 const [timing, setTiming]=useState("");
 const [description, setDescription]=useState("");
 
@@ -121,7 +87,6 @@ const [description, setDescription]=useState("");
 const [adressOk, setAdressOk]=useState(0);
 const [zipOk, setZipOk]=useState(0);
 const [cityOk, setCityOk]=useState(0);
-const [closestCityOk, setClosestCityOk]=useState(0);
 const [timingOk, setTimingOk]=useState(0);
 const [descriptionOk, setDescriptionOk]=useState(0);
 
@@ -155,7 +120,30 @@ function dniDoDaty(da) {
     const pozostaleDni = Math.ceil((dzienza - dzis) / milisekundyWJednymDniu);
     return pozostaleDni;
   }
+  
 
+
+  useEffect(
+    ()=>{
+        const data={
+        }
+        const resultsGetCities= getData(serviceURL,data)
+        if(resultsGetCities)
+        { 
+            resultsGetCities.then((result)=>{
+                if (result)
+                {setLoading(0);
+        setDataService(result);
+              
+                }
+                else 
+                {
+alert("Nastąpił błąd i nie udało nam się pobrac danych. Odświez stronę lub spróbuj ponownie później.")                    
+                }
+            })}
+    
+    
+    },[props.category] )
 const step1=()=>{
     setDaysToDate(dniDoDaty(dateToCheck))
     setDate(dateToCheck);
@@ -237,20 +225,7 @@ else
     setCityOk(0);
 }
 }
-const valClosestCity=(e)=>{
-    setClosestCityOk(0);
-    setClosestCity(e.target.value);
-    setPriceTransp(e.target.value*dataService[0].pricetransport)
-    if(e.target.value.length >0)
-    {
-     setClosestCityOk(1);
-    }
-    else 
-    {
-        setClosestCityOk(0);
-    }
-    
-}
+
 const valTiming=(e)=>{
 
     setTimingOk(0);
@@ -347,7 +322,6 @@ const valName=(e)=>{
 data_uslugi:date,
 kategoria:props.category,
 opcja:vidLong,
-kmtransp:closestCity,
 ulica:adress,
 kod_pocztowy:zip,
 miejscowosc:city,
@@ -389,7 +363,6 @@ setResult(result)
             data_uslugi:date,
             kategoria:props.category,
             opcja:vidLong,
-            kmtransp:closestCity,
             ulica:adress,
             kod_pocztowy:zip,
             miejscowosc:city,
@@ -426,7 +399,8 @@ setResult(result)
             setAverror(0);
 
                 const data={
-                    dateAv:dateToCheck
+                    dateStart:date1ToBlock,
+                    dateEnd:date2ToBlock,
                 }
                 const avability= getData(avabilityURL,data)
                 if(avability)
@@ -449,24 +423,67 @@ setAvalable(result.avable)
 
         }
 
+const pickDates=(item)=>{
+
+    setDates([item.selection]);
+    setDate1ToCheck(item.selection.startDate.getFullYear()+'-'+String(item.selection.startDate.getMonth()+1).padStart(2,'0')+'-'+String(item.selection.startDate.getDate()).padStart(2,'0'));
+    setDate2ToCheck(item.selection.endDate.getFullYear()+'-'+String(item.selection.endDate.getMonth()+1).padStart(2,'0')+'-'+String(item.selection.endDate.getDate()).padStart(2,'0'));
+    
+let sd= new Date(item.selection.startDate.getFullYear()+'-'+String(item.selection.startDate.getMonth()+1).padStart(2,'0')+'-'+String(item.selection.startDate.getDate()).padStart(2,'0'))
+let fd=new Date(item.selection.endDate.getFullYear()+'-'+String(item.selection.endDate.getMonth()+1).padStart(2,'0')+'-'+String(item.selection.endDate.getDate()).padStart(2,'0'))
+   sd.setDate(sd.getDate()-2);
+setDate1ToBlock(sd.getFullYear()+'-'+String(sd.getMonth()+1).padStart(2,'0')+'-'+String(sd.getDate()).padStart(2,'0'));
+
+fd.setDate(fd.getDate()+2);
+setDate2ToBlock(fd.getFullYear()+'-'+String(fd.getMonth()+1).padStart(2,'0')+'-'+String(fd.getDate()).padStart(2,'0'));
+
+}
+
     return ( <>{dataService? <div className="DsConfigurator">
 <div className="spec">
 <h2> {dataService[0].description}</h2>
 
-<video width="400" controls>
-  <source src={require('../../../intMedia/przyklad.mp4')} type="video/mp4"/>
-  <source src={require('../../../intMedia/przyklad.mp4')} type="video/ogg"/>
-</video>
-<h4> Specyfikacja:</h4>
+
+<h4> Nasze drony:</h4>
+{dataService.map(element=>
+<div className="Drone">
+<img src="" alt={element.name}/>
+<h4> {element.nazwa}</h4>
+<p>{element.opis} </p>
+<p>Koszt 1-5 dni: {element.cena1} zł / dzień</p>
+<p>Koszt 6-14 dni: {element.cena2} zł / dzień</p>
+<p>Koszt 14+ dni: {element.cena3} zł / dzień</p>
+
+</div>
+
+)}
+
+
 <p>{dataService[0].specyfikacja}</p>
 </div>
 <div className="configuration">
     <h4> Konfiguracja filmu</h4>
     {step===1?<div className='selectDate'>
 
-Wybierz datę: <input type="date"  min={Today} max={max} value={dateToCheck} onChange={(e)=>{setDateToCheck(e.target.value); setAvalable(null); setAverror(null);}} />
+Wybierz datę: 
+{/*<input type="date"  min={Today} max={max} value={dateToCheck} onChange={(e)=>{setDateToCheck(e.target.value); setAvalable(null); setAverror(null);}} />*/}
+<div className="datePick">
+
+<DateRange
+  editableDateInputs={true}
+  onChange={item => pickDates(item)}
+  moveRangeOnFirstSelection={false}
+  ranges={dates}
+  minDate={new Date()} 
+  maxDate={maxDate}
+
+  
+/>
+
+</div>
+
 {avalable===false?<div className="avError">Niestety ten termin nie jest dostępny. Spróbuj inny lub skontakuj się osobiście.</div>:null}
-{dateToCheck?<div className="navigation">
+{date1ToCheck&&date2ToCheck?<div className="navigation rentNavi">
 
 <div className="right" onClick={checkAvalable}>Sprawdź dostępność</div>
 
@@ -496,7 +513,6 @@ Wybierz datę: <input type="date"  min={Today} max={max} value={dateToCheck} onC
 <input type="text" placeholder='Ulica i numer' value={adress}  onChange={(e)=>valAdress(e)}/><span className="valSign">{adress===""?null:adress.length>0 && adressOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
 <input type="text" placeholder='Kod pocztowy' value={zip}  onChange={(e)=>valZip(e)}/><span className="valSign">{zip===""?null:zip.length>0 && zipOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
 <input type="text" placeholder='Miejscowość' value={city}  onChange={(e)=>valCity(e)}/><span className="valSign">{city===""?null:city.length>0 && cityOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
-<select value={closestCity} onChange={valClosestCity}><option value=""> Najblizsze Miasto</option>{dataCities?dataCities.map((option)=> <option key={option.id} value={option.km}>{option.miasto}</option>):null}</select><span className="valSign">{closestCity===""?null:closestCity.length>0 && closestCityOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
 <input type="text" placeholder='Przedział czasowy' value={timing}  onChange={(e)=>valTiming(e)}/><span className="valSign">{timing===""?null:timing.length>0 && timingOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
 <textarea placeholder='opis zlecenia' value={description}   onChange={(e)=>valDescription(e)}></textarea><span className="valSign">{description===""?null:description.length>0 && descriptionOk===1? <FontAwesomeIcon inverse icon={faCheck}/>:<FontAwesomeIcon inverse icon={faX}/>}</span>
 
@@ -506,7 +522,7 @@ Wybierz datę: <input type="date"  min={Today} max={max} value={dateToCheck} onC
                <div className="navigation">
                <div className="right" onClick={()=>setStep(2)}>Poprzedni krok</div>
      
-              {adressOk===1&&zipOk===1&&cityOk===1&&closestCityOk===1&&timingOk===1&&descriptionOk===1?<div className="right" onClick={()=>setStep(4)}>Następny krok</div>:null}
+              {adressOk===1&&zipOk===1&&cityOk===1&&timingOk===1&&descriptionOk===1?<div className="right" onClick={()=>setStep(4)}>Następny krok</div>:null}
                
                    </div>
               
@@ -570,7 +586,7 @@ Wybierz datę: <input type="date"  min={Today} max={max} value={dateToCheck} onC
  
     <div className="summary">
 <p>Podsumowanie kosztów:</p>
-<div>Usługa: {priceService} PLN</div> 
+<div>Wynajem: {priceService} PLN</div> 
 <div>Dojazd:{priceTransp} PLN</div>
  <div>Łącznie: {priceTransp+priceService} PLN</div>
 

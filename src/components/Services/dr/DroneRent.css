@@ -1,0 +1,35 @@
+.DsConfigurator
+{
+    background-color: #000;
+    padding-top:100px;
+    color:#fff;
+}
+.DsConfigurator .spec .Drone
+{
+    width:80%;
+    margin:auto;
+    border-bottom:#fff solid 1px;
+}
+
+
+.DsConfigurator .selectDate  .datePick
+{
+
+margin:auto;
+display: block;
+text-align: center;
+margin-top:100px;
+
+
+}
+
+.DsConfigurator .selectDate  .datePick div
+{
+    box-shadow: #fff 0px -10px 20px 7px;
+    border-radius: 10px;
+}
+.rentNavi
+{
+    margin-top:50px;
+}
+

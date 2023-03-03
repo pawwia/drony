@@ -84,9 +84,9 @@ setClosestCity("");
 
     },[props.category])
     window.addEventListener("beforeunload", (ev) => 
-    {  
+    {  if (preventExit===true){
         ev.preventDefault();
-        return ev.returnValue = 'Rozpocząłeś rezerację. Czy jesteś pewny, że chcesz anulować?';
+        return ev.returnValue = 'Rozpocząłeś rezerację. Czy jesteś pewny, że chcesz anulować?';}
     });
 
 const [dataCities,setDataCities]=useState(null);
@@ -101,6 +101,8 @@ const Today=Year+'-'+Month+'-'+Day;
 const max=(Year+1)+'-'+Month+'-'+Day;
 const [loading,setLoading]=useState(0);
 const [errorText,setErrorText]=useState(null);
+const [preventExit,setPreventExit]=useState(true);
+
 
 const [dateToCheck,setDateToCheck]=useState();
 const [avalable,setAvalable]=useState(null);
@@ -341,6 +343,8 @@ const valName=(e)=>{
         }
 
         const onlyorder =()=>{
+            setResult(null);
+            setPreventExit(false)
             setLoading(1);
             setStep(6);
             const data={
@@ -368,12 +372,13 @@ oplacono_online:false,
             {
                 orderWithout.then((result)=>{
                     if (result)
-                    {setLoading(0);
-setResult(result)                  
+                    {
+setResult(result)   ;
+setLoading(0);               
                     }
                     else 
                     {
-                    setLoading(0);
+                    setLoading(1);
                     
                     }
                 })}
@@ -383,6 +388,8 @@ setResult(result)
 
 
         const orderandpay =()=>{
+            setResult(null);
+            setPreventExit(false)
           setLoading(1);
           setStep(6);
           const data={
@@ -410,11 +417,12 @@ setResult(result)
                             orderAndPay.then((result)=>{
                                 if (result)
                                 {setLoading(0);
-            setResult(result)                  
+            setResult(result);
+                       
                                 }
                                 else 
                                 {
-                                setLoading(0);
+                                setLoading(1);
                                 
                                 }
                             })}
@@ -542,8 +550,9 @@ Wybierz datę: <input type="date"  min={Today} max={max} value={dateToCheck} onC
                    </div>
            </>:step===6?<div className='finalbox'>
 
-{loading===true?<div className='Loading'>Proszę czekać... </div>:null}
+{loading===1?<div className='Loading'>Proszę czekać... </div>:null}
 {payment==="online"?<div className="finalOnline">
+
 {result?<div className="final">
 <h2> Gratulacje</h2>
 <p>{result.msg?result.msg:null}</p>
@@ -562,6 +571,7 @@ id={result.id}
 
 
 </div>:<div className="finalOnlyBook">
+    {loading===true?<p>Proszę czekać... </p>:null}
     {result?<div className="final">
 <h2> Gratulacje</h2>
 <p>{result.msg?result.msg:null}</p>
